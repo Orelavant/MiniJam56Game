@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour {
 
-    [SerializeField] private int spawnRate = 5;
+    private float maxHeight = 0;
+    private float minHeight = -5;
+    private int spawnRate = 5;
     private int initialDelay = 2;
+
     public GameObject obstacle;
 
     // Start is called before the first frame update
@@ -15,11 +18,9 @@ public class Spawn : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        // TODO: Set spawn position randomly.
     }
 
     void SpawnObstacle() {
-        // TODO: Set rotation of obstacle
-        Instantiate(obstacle, transform.position, transform.rotation);
+        Instantiate(obstacle, new Vector3(transform.position.x, Random.Range(minHeight, maxHeight), 0f), transform.rotation);
     }
 }

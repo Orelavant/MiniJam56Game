@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRb;
-    [SerializeField] private int boost = 100;
-    private bool boostActive; 
+    public GameObject doughnut;
+
+    [SerializeField] private int boost = 50;
+    private bool boostActive;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     void Update() {
         boostActive = Input.GetKey("space");
+
+        if (Input.GetKeyDown("down")) {
+            Instantiate(doughnut, transform.position, Quaternion.identity);
+        }
     }
 
     private void FixedUpdate() {
