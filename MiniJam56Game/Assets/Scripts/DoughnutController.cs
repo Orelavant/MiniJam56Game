@@ -16,7 +16,7 @@ public class DoughnutController : MonoBehaviour {
     void Update() {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < -7) {
+        if (transform.position.y < -5.2) {
             Destroy(gameObject);
         }
 

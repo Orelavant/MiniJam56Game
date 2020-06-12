@@ -16,9 +16,7 @@ public class GoalController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("Collided with " + collision.name);
         if (collision.name.Equals("doughnut(Clone)")) {
-            print("ye");
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }
