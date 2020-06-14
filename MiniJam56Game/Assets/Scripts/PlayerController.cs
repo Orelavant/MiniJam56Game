@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int boost = 50;
     private bool boostActive;
 
+    public bool doughnutActive = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +21,9 @@ public class PlayerController : MonoBehaviour
     void Update() {
         boostActive = Input.GetKey("space");
 
-        if (Input.GetKeyDown("down")) {
+        if (Input.GetKeyDown("down") && !doughnutActive) {
             Instantiate(doughnut, transform.position, Quaternion.identity);
+            doughnutActive = true;
         }
     }
 

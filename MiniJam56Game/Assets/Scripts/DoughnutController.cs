@@ -7,9 +7,11 @@ public class DoughnutController : MonoBehaviour {
     private int speed = 3;
     Vector2 movement;
 
+    private GameObject playerController;
+
     // Start is called before the first frame update
     void Start() {
-
+        playerController = GameObject.Find("player");
     }
 
     // Update is called once per frame
@@ -18,6 +20,7 @@ public class DoughnutController : MonoBehaviour {
 
         if (transform.position.y < -5.2) {
             Destroy(gameObject);
+            playerController.GetComponent<PlayerController>().doughnutActive = false;
         }
 
         // Input
