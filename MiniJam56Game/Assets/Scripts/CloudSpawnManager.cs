@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloudSpawnManager : MonoBehaviour {
 
-    private float maxHeight = 4;
+    private float maxHeight = 4.5f;
     private float minHeight = -4;
 
     private int spawnRate = 3;
