@@ -10,8 +10,9 @@ public class ObstacleController : MonoBehaviour {
     private float maxX = -0.5f;
     private float minX = -1;
 
+    // Define various speeds
     private int maxSpeed = 12;
-    private int minSpeed = 8;
+    private int minSpeed = 6;
 
     private Rigidbody2D obstacleRb;
 

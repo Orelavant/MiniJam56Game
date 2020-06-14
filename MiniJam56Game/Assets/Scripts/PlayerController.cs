@@ -16,10 +16,19 @@ public class PlayerController : MonoBehaviour
 
     public bool doughnutActive = false;
 
+    public AudioClip boostSound;
+    public AudioClip doughnutDropSound;
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
+    private GameObject gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("EventSystem");
         playerRb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -27,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown("down") && !doughnutActive) {
             Instantiate(doughnut, transform.position, Quaternion.identity);
+            audioSource.PlayOneShot(doughnutDropSound, 0.5f);
             doughnutActive = true;
         }
 
@@ -55,6 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.name.Equals("obstacle(Clone)")) {
+            gameManager.GetComponent<GameManager>().PlayAudio(deathSound);
             Destroy(gameObject);
         }
     }

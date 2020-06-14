@@ -10,6 +10,8 @@ public class GoalController : MonoBehaviour {
     private GameObject playerController;
     private GameObject gameManager;
 
+    public AudioClip deliverySound;
+
     // Start is called before the first frame update
     void Start() { 
         playerController = GameObject.Find("player");
@@ -28,6 +30,7 @@ public class GoalController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.name.Equals("doughnut(Clone)")) {
             gameManager.GetComponent<GameManager>().AddScore(10);
+            gameManager.GetComponent<GameManager>().PlayAudio(deliverySound);
             Destroy(gameObject);
             Destroy(collision.gameObject);
             playerController.GetComponent<PlayerController>().doughnutActive = false;
