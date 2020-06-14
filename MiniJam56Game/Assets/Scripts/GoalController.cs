@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GoalController : MonoBehaviour
-{
+public class GoalController : MonoBehaviour {
+
     private int speed = 3;
 
     private GameObject playerController;

@@ -15,12 +15,6 @@ public class SpawnGoal : MonoBehaviour
         InvokeRepeating("Spawn", initialDelay, spawnRate);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void Spawn() {
         Instantiate(goal, transform.position, transform.rotation);
     }
