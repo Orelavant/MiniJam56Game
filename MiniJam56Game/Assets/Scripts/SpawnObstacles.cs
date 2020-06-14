@@ -22,6 +22,8 @@ public class SpawnObstacles : MonoBehaviour {
     private float cannonDelay = 0.7f;
 
     // Variables used to keep player from staying in the same area too often
+    private bool spawningBullet1 = false;
+    private bool spawningBullet2 = false;
     private bool isInBulletZone1 = false;
     private bool isInBulletZone2 = false;
     private float bulletZone1 = 5;
@@ -37,19 +39,26 @@ public class SpawnObstacles : MonoBehaviour {
         player = GameObject.Find("player");
 
         StartCoroutine(SpawnObstacle());
-        /*StartCoroutine(TrackPlayer());*/
     }
 
     private void Update() {
-        /*// Tracking player position
+        // Tracking player position
+        if (player.transform.position.y < bulletZone1 && player.transform.position.y > 0) {
+            isInBulletZone1 = true;
+            isInBulletZone2 = false;
+        }
         if (player.transform.position.y > bulletZone2 && player.transform.position.y < 0) {
             isInBulletZone1 = false;
             isInBulletZone2 = true;
         }
-        if (player.transform.position.y < bulletZone1 && player.transform.position.y > 0) {
-            isInBulletZone1 = true;
-            isInBulletZone2 = false;
-        }*/
+
+        // Preventing stationary tactics
+        if (isInBulletZone1 && !spawningBullet1) {
+            StartCoroutine(SpawnBullet1());
+        }
+        if (isInBulletZone2 && !spawningBullet2) {
+            StartCoroutine(SpawnBullet2());
+        }
     }
 
     IEnumerator SpawnObstacle() {
@@ -61,16 +70,21 @@ public class SpawnObstacles : MonoBehaviour {
         }
     }
 
-    IEnumerator TrackPlayer() {
-        while (true) {
-            if (isInBulletZone1) {
-                yield return new WaitForSeconds(stationaryTime + warningTime);
-                Instantiate(bullet, new Vector3(transform.position.x, Random.Range(0, bulletZone1), 0f), transform.rotation);
-            }
-            if (isInBulletZone2) {
-                yield return new WaitForSeconds(stationaryTime + warningTime);
-                Instantiate(bullet, new Vector3(transform.position.x, Random.Range(0, bulletZone1), 0f), transform.rotation);
-            }
+    IEnumerator SpawnBullet1() {
+        spawningBullet1 = true;
+        yield return new WaitForSeconds(stationaryTime + warningTime);
+        if (isInBulletZone1) {
+            Instantiate(bullet, new Vector3(transform.position.x, player.transform.position.y, 0f), transform.rotation);
         }
+        spawningBullet1 = false;
+    }
+
+    IEnumerator SpawnBullet2() {
+        spawningBullet2 = true;
+        yield return new WaitForSeconds(stationaryTime + warningTime);
+        if (isInBulletZone2) {
+            Instantiate(bullet, new Vector3(transform.position.x, player.transform.position.y, 0f), transform.rotation);
+        }
+        spawningBullet2 = false;
     }
 }
