@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
         if (collision.name.Equals("obstacle(Clone)") || collision.name.Equals("bullet(Clone)")) {
             gameManager.GetComponent<GameManager>().PlayAudio(deathSound);
             Destroy(gameObject);
+            gameManager.GetComponent<GameManager>().GameOver();
         }
     }
 
