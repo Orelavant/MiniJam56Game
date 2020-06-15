@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.name.Equals("obstacle(Clone)")) {
+        if (collision.name.Equals("obstacle(Clone)") || collision.name.Equals("bullet(Clone)")) {
             gameManager.GetComponent<GameManager>().PlayAudio(deathSound);
             Destroy(gameObject);
         }

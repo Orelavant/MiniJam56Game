@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
-{
-    private int speed = 6;
+public class BulletController : MonoBehaviour {
+
+    private GameObject obstacleSpawner;
+    private float speed;
+    private int bulletModifier = 2;
+
+    private void Start() {
+        obstacleSpawner = GameObject.Find("obstacleSpawnManager");
+        obstacleSpawner.GetComponent<SpawnObstacles>().bulletSpeed += bulletModifier;
+        speed = obstacleSpawner.GetComponent<SpawnObstacles>().bulletSpeed;
+    }
 
     // Update is called once per frame
     void Update() {

@@ -28,9 +28,11 @@ public class SpawnObstacles : MonoBehaviour {
     private bool isInBulletZone2 = false;
     private float bulletZone1 = 5;
     private float bulletZone2 = -5f;
-    private float stationaryTime = 3;
-    private float warningTime = 2;
+    private float stationaryTime = 5;
+    private float warningTime = 1;
+    public int bulletSpeed = 8;
     public GameObject bullet;
+    public GameObject warningSign;
 
     // Start is called before the first frame update
     private void Start() {
@@ -72,18 +74,26 @@ public class SpawnObstacles : MonoBehaviour {
 
     IEnumerator SpawnBullet1() {
         spawningBullet1 = true;
-        yield return new WaitForSeconds(stationaryTime + warningTime);
+        yield return new WaitForSeconds(stationaryTime);
         if (isInBulletZone1) {
-            Instantiate(bullet, new Vector3(transform.position.x, player.transform.position.y, 0f), transform.rotation);
+            float spawnBulletPosition = player.transform.position.y;
+            Instantiate(warningSign, new Vector3(7.7f, spawnBulletPosition, 0f), transform.rotation);
+            yield return new WaitForSeconds(warningTime);
+            Destroy(GameObject.Find("warningSign(Clone)"));
+            Instantiate(bullet, new Vector3(transform.position.x, spawnBulletPosition, 0f), transform.rotation);
         }
         spawningBullet1 = false;
     }
 
     IEnumerator SpawnBullet2() {
         spawningBullet2 = true;
-        yield return new WaitForSeconds(stationaryTime + warningTime);
+        yield return new WaitForSeconds(stationaryTime);
         if (isInBulletZone2) {
-            Instantiate(bullet, new Vector3(transform.position.x, player.transform.position.y, 0f), transform.rotation);
+            float spawnBulletPosition = player.transform.position.y;
+            Instantiate(warningSign, new Vector3(7.7f, spawnBulletPosition, 0f), transform.rotation);
+            yield return new WaitForSeconds(warningTime);
+            Destroy(GameObject.Find("warningSign(Clone)"));
+            Instantiate(bullet, new Vector3(transform.position.x, spawnBulletPosition, 0f), transform.rotation);
         }
         spawningBullet2 = false;
     }
